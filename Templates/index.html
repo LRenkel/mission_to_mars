@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mission to Mars</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+
+</head>
+<body>
+    <style>
+        header {
+            background: lightgray;
+        }
+        .weather {
+            background-color:lightgray;
+        }
+
+        h3 { 
+            font-size: 14pt;
+        }
+
+        figcaption {
+            font-weight: bold;
+        }
+    </style>
+    
+    <div class="container-fluid" style="width:100%">
+        <div class="jumbotron jumbotron-fluid text-center">
+            <h1>Mission to Mars</h1>
+            <a href="/scrape" class="btn btn-primary btn-lg" role="button">Scrape New Data</a>
+        </div>
+    </header>
+
+    
+        <div class="row">
+            <div class="col-md-12">
+                    <h2>Latest Mars News</h2>
+                    <h3>{{  mars_data.news_title }}</h3>
+                    <p>{{  mars_data.news_p  }}</p>
+            </div>
+        </div>
+            <div class = "row">
+                <div class="col-md-8">
+                    <h2>Featured Mars Image</h2>
+                    <img src = {{ mars_data.featured_image_url }} alt="Featured Mars Image" width=90%>
+                </div>
+                <div class="col-md-4">
+                    <div class = "row border pr-5" id="weather">
+                        <h3 class="pt-2 pl-2 pr-2">Current Weather on Mars</h3>
+                        <p class="pt-2 pl-2 pr-2">{{ mars_data.mars_weather }}</p>
+                    </div>
+                    <div class = "row pt-4" id="marsfacts">
+                        <h3>Mars Facts</h3>
+                        <table class="table">
+                            {{ mars_data.marsfacts_table | safe }}
+                    </div>
+                </div>
+            <div class ="row pt-5">
+                <div class="col-md-12">
+                    <h2 class="text-center">Mars Hemispheres</h2>
+                    <div class = "row">
+                        <div class = "col-md-6 text-right">
+                            <figure class="figure pt-3 pb-3">
+                                {% for hemisphere in mars_data.hemisphere_urls [0:2]%}
+                                <img src = {{ hemisphere.Image_Url }} class="figure-img img-fluid rounded border" alt= {{hemisphere.Title}} width=50%>
+                                <figcaption class="figure-caption">{{hemisphere.Title}}</figcaption>
+                                {% endfor %}
+                            </figure>                            
+                        </div>
+                        <div class = "col-md-6 text-left">
+                            <figure class="figure pt-3 pb-3">
+                                {% for hemisphere in mars_data.hemisphere_urls [2:4]%}
+                                <img src = {{ hemisphere.Image_Url }} class="figure-img img-fluid rounded" alt= {{hemisphere.Title}} width=50%>
+                                <figcaption class="figure-caption">{{hemisphere.Title}}</figcaption>
+                                {% endfor %}
+                            </figure>           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div> 
+
+</body>
+</html>
